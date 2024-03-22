@@ -1,15 +1,12 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shared/common/common.dart';
 
-class SharedModule extends ChildModule {
+class SharedModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((_) => ImageAssets()),
-        Bind((_) => LocaleKeys()),
-        Bind((_) => NamedRoutes()),
-        Bind((_) => ColorPalettes()),
-      ];
-
-  @override
-  List<ModularRouter> get routers => [];
+  void binds(i) {
+    i.addLazySingleton<ImageAssets>(() => ImageAssets());
+    i.addLazySingleton<LocaleKeys>(() => LocaleKeys());
+    i.addLazySingleton<NamedRoutes>(() => NamedRoutes());
+    i.addLazySingleton<ColorPalettes>(() => ColorPalettes());
+  }
 }

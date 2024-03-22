@@ -1,59 +1,37 @@
 import 'package:bookmark/bookmark.dart';
+import 'package:core/core.dart';
 import 'package:core/local/shared_pref_helper.dart';
+import 'package:core/network/api_constant.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:detail_news/detail_news.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
 import 'package:list_news/list_news.dart';
 import 'package:list_news/presentation/bloc/bloc.dart';
-import 'package:news_app/ui/launcher/app_config.dart';
 import 'package:news_app/ui/splash/splash_page.dart';
 import 'package:settings/presentation/bloc/theme/bloc.dart';
 import 'package:settings/settings.dart';
 import 'package:shared/common/common.dart';
+import 'package:shared/shared.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AppModule extends MainModule {
+class AppModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((_) => ThemeBloc(prefHelper: Modular.get<SharedPrefHelper>())),
-      ];
-
-  @override
-  Widget get bootstrap => EasyLocalization(
-      path: 'assets/languages',
-      supportedLocales: [Locale('en', 'US'), Locale('id', 'ID')],
-      child: MyApp());
+  void binds(i) {
+    i.addLazySingleton<ThemeBloc>(() => ThemeBloc(prefHelper: Modular.get<SharedPrefHelper>()));
+  }
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(
-          Modular.get<NamedRoutes>().splashPage,
-          child: (context, args) => SplashPage(),
-        ),
-        ModularRouter(
-          Modular.get<NamedRoutes>().homePage,
-          module: FeatureHomeModule(),
-        ),
-        ModularRouter(
-          Modular.get<NamedRoutes>().listArticlePage,
-          module: FeatureListNews(),
-        ),
-        ModularRouter(
-          Modular.get<NamedRoutes>().detailArticlePage,
-          module: FeatureDetailNews(),
-        ),
-        ModularRouter(
-          Modular.get<NamedRoutes>().bookmarkPage,
-          module: FeatureBookmarkModule(),
-        ),
-        ModularRouter(
-          Modular.get<NamedRoutes>().settingsPage,
-          module: FeatureSettingsModule(),
-        ),
-      ];
+  Future<void> routes(r) async {
+    r.child(Modular.get<NamedRoutes>().splashPage, child: (_) => SplashPage());
+    r.module(Modular.get<NamedRoutes>().homePage, module: FeatureHomeModule());
+    r.module(Modular.get<NamedRoutes>().listArticlePage, module: FeatureListNews());
+    r.module(Modular.get<NamedRoutes>().bookmarkPage, module: FeatureBookmarkModule());
+    r.module(Modular.get<NamedRoutes>().settingsPage, module: FeatureSettingsModule());
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -76,23 +54,22 @@ class MyApp extends StatelessWidget {
 
   Widget _buildWithTheme(BuildContext context, ThemeState state) {
     Modular.get<ThemeBloc>().add(GetTheme());
-    return MaterialApp(
-      debugShowCheckedModeBanner: Config.isDebug,
+    Modular.setInitialRoute(Modular.get<NamedRoutes>().splashPage);
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: kDebugMode,
       title: Modular.get<LocaleKeys>().listNewsTitle.tr(),
       theme: state.isDarkTheme ? darkTheme : lightTheme,
       builder: (context, child) {
         return CupertinoTheme(
-          data: CupertinoThemeData(
-              brightness:
-                  state.isDarkTheme ? Brightness.dark : Brightness.light),
+          data: CupertinoThemeData(brightness: state.isDarkTheme ? Brightness.dark : Brightness.light),
           child: Material(
             child: child,
           ),
         );
       },
-      initialRoute: Modular.get<NamedRoutes>().splashPage,
-      navigatorKey: Modular.navigatorKey,
-      onGenerateRoute: Modular.generateRoute,
+      routeInformationProvider: Modular.routerConfig.routeInformationProvider,
+      routeInformationParser: Modular.routerConfig.routeInformationParser,
+      routerDelegate: Modular.routerConfig.routerDelegate,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

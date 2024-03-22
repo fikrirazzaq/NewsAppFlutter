@@ -17,19 +17,14 @@ class DetailNewsPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          article.urlToImage == null
-              ? Container(
-                  height: 200.h,
-                  child: Center(child: Icon(Icons.error)),
-                )
-              : Hero(
-                  tag: article.urlToImage,
-                  child: CachedNetworkImage(
-                    imageUrl: article.urlToImage,
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
-                  ),
-                ),
+          Hero(
+            tag: article.urlToImage,
+            child: CachedNetworkImage(
+              imageUrl: article.urlToImage,
+              placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.all(10),
             child: Column(
@@ -63,7 +58,7 @@ class DetailNewsPage extends StatelessWidget {
                 ElevatedButton(
                   child: Text(Modular.get<LocaleKeys>().btnReadMore.tr()),
                   onPressed: () =>
-                      Modular.link.pushNamed(Modular.get<NamedRoutes>().detailWebViewPage, arguments: article.url),
+                      Modular.to.pushNamed(Modular.get<NamedRoutes>().detailWebViewPage, arguments: article.url),
                 ),
               ],
             ),

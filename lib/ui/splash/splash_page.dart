@@ -84,8 +84,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     // Set the value of width : 1080px , height:1920px and set the font size is
     // scaled according to the system's "font size" assist option
-    ScreenUtil.init(context,
-        designSize: Size(750, 1334), allowFontScaling: true);
+    ScreenUtil.init(context, designSize: Size(750, 1334));
     return PlatformWidget(
       androidBuilder: _buildAndroid,
       iosBuilder: _buildIos,

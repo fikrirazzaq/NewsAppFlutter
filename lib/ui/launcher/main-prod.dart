@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/network/api_constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,11 +13,17 @@ import 'package:shared/shared.dart';
 
 void main() async {
   Bloc.observer = NewsBlocObserver();
-  Config.appFlavor = Flavor.RELEASE;
+  // Config.appFlavor = Flavor.RELEASE;
   WidgetsFlutterBinding.ensureInitialized();
   final preferences = await SharedPreferences.getInstance();
-  Modular.init(
-      CoreModule(baseUrl: ApiConstant.baseUrlProd, preferences: preferences));
-  Modular.init(SharedModule());
-  runApp(ModularApp(module: AppModule()));
+  Modular.bindModule(CoreModule(baseUrl: ApiConstant.baseUrlProd, preferences: preferences));
+  Modular.bindModule(SharedModule());
+  runApp(ModularApp(
+    module: AppModule(),
+    child: EasyLocalization(
+      path: 'assets/languages',
+      supportedLocales: [Locale('en', 'US'), Locale('id', 'ID')],
+      child: MyApp(),
+    ),
+  ));
 }

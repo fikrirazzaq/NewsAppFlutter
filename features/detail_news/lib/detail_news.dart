@@ -4,19 +4,10 @@ import 'package:shared/common/common.dart';
 
 import 'presentation/ui/detail_news_page.dart';
 
-class FeatureDetailNews extends ChildModule {
+class FeatureDetailNews extends Module {
   @override
-  List<Bind> get binds => [];
-
-  @override
-  List<ModularRouter> get routers => [
-        ModularRouter(
-          Modular.get<NamedRoutes>().detailArticlePage,
-          child: (context, args) => DetailNewsPage(article: args.data),
-        ),
-        ModularRouter(
-          Modular.get<NamedRoutes>().detailWebViewPage,
-          child: (_, arg) => ArticleWebView(url: arg.data),
-        ),
-      ];
+  void routes(r) {
+    r.child(Modular.get<NamedRoutes>().detailArticlePage, child: (_) => DetailNewsPage(article: r.args.data));
+    r.child(Modular.get<NamedRoutes>().detailWebViewPage, child: (_) => ArticleWebView(url: r.args.data));
+  }
 }

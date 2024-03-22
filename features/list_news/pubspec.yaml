@@ -1,8 +1,7 @@
 name: list_news
 description: A new Flutter package.
 version: 0.0.1
-author:
-homepage:
+publish_to: 'none'
 
 environment:
   sdk: ">=3.2.6 <4.0.0"

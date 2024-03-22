@@ -2,7 +2,7 @@ class NamedRoutes {
   String splashPage = "/splash";
 
   // home
-  String homePage = "/home";
+  String homePage = "/";
 
   // list article features
   String listArticlePage = "/list_article";

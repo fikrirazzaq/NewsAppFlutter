@@ -7,21 +7,18 @@ import 'package:settings/presentation/bloc/language/language_state.dart';
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   final SharedPrefHelper prefHelper;
 
-  LanguageBloc({required this.prefHelper})
-      : super(InitialLanguage(isIndonesian: false));
-
-  @override
-  Stream<LanguageState> mapEventToState(LanguageEvent event) async* {
-    if (event is LanguageChanged) {
+  LanguageBloc({required this.prefHelper}) : super(InitialLanguage(isIndonesian: false)) {
+    on<GetLanguage>((event, emit) async {
+      var isIndonesian = await prefHelper.getValueIndonesianLanguage();
+      emit(InitialLanguage(isIndonesian: isIndonesian));
+    });
+    on<LanguageChanged>((event, emit) async {
       await prefHelper.saveValueIndonesianLanguage(event.isIndonesian);
       if (event.isIndonesian)
-        yield EnglishLanguageState();
+        emit(EnglishLanguageState());
       else
-        yield IndonesiaLanguageState();
-      yield InitialLanguage(isIndonesian: event.isIndonesian);
-    } else if (event is GetLanguage) {
-      var isIndonesian = await prefHelper.getValueIndonesianLanguage();
-      yield InitialLanguage(isIndonesian: isIndonesian);
-    }
+        emit(IndonesiaLanguageState());
+      emit(InitialLanguage(isIndonesian: event.isIndonesian));
+    });
   }
 }

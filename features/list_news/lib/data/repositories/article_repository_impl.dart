@@ -3,6 +3,8 @@ import 'package:list_news/data/datasources/article_remote_data_source.dart';
 import 'package:list_news/domain/entities/article_entity.dart';
 import 'package:list_news/domain/repositories/article_repository.dart';
 
+import '../models/article_result_model.dart';
+
 class ArticleRepositoryImpl extends ArticleRepository {
   final ArticleDataSource articleDataSource;
 
@@ -10,20 +12,18 @@ class ArticleRepositoryImpl extends ArticleRepository {
 
   @override
   Future<List<ArticleEntity>> getListArticle() async {
-    List<ArticleEntity> articleEntity = List.empty(growable: true);
-    var article = await articleDataSource.getListArticle();
-    article.articles.forEach((data) {
-      var news = ArticleEntity(
-        author: data.author,
-        title: data.title,
-        description: data.description,
-        url: data.url,
-        urlToImage: data.urlToImage,
-        publishedAt: data.publishedAt,
-        content: data.content,
-      );
-      articleEntity.add(news);
-    });
-    return articleEntity;
+    ArticleResultModel? article = await articleDataSource.getListArticle();
+    return article?.articles
+            .map((e) => ArticleEntity(
+                  author: e.author ?? '',
+                  title: e.title ?? '',
+                  description: e.description ?? '',
+                  url: e.url ?? '',
+                  urlToImage: e.urlToImage ?? '',
+                  publishedAt: e.publishedAt ?? '',
+                  content: e.content ?? '',
+                ))
+            .toList() ??
+        [];
   }
 }

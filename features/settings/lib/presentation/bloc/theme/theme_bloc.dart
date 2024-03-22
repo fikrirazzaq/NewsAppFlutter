@@ -6,19 +6,15 @@ import 'package:settings/presentation/bloc/theme/bloc.dart';
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   final SharedPrefHelper prefHelper;
 
-  ThemeBloc({required this.prefHelper})
-      : super(ThemeState(isDarkTheme: false));
-
-  @override
-  Stream<ThemeState> mapEventToState(
-    ThemeEvent event,
-  ) async* {
-    if (event is ThemeChanged) {
-      await prefHelper.saveValueDarkTheme(event.isDarkTheme);
-      yield ThemeState(isDarkTheme: event.isDarkTheme);
-    } else if (event is GetTheme) {
+  ThemeBloc({required this.prefHelper}) : super(ThemeState(isDarkTheme: false)) {
+    on<GetTheme>((event, emit) async {
       var isDarkTheme = await prefHelper.getValueDarkTheme();
-      yield ThemeState(isDarkTheme: isDarkTheme);
-    }
+      emit(ThemeState(isDarkTheme: isDarkTheme));
+    });
+
+    on<ThemeChanged>((event, emit) async {
+      await prefHelper.saveValueDarkTheme(event.isDarkTheme);
+      emit(ThemeState(isDarkTheme: event.isDarkTheme));
+    });
   }
 }

@@ -10,30 +10,23 @@ import 'package:list_news/presentation/bloc/article_state.dart';
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   final ArticleUseCase articleUseCase;
 
-  ArticleBloc({required this.articleUseCase}) : super(Initial());
-
-  @override
-  Stream<ArticleState> mapEventToState(ArticleEvent event) async* {
-    if (event is LoadData) {
-      yield* _loadArticle();
-    }
-  }
-
-  Stream<ArticleState> _loadArticle() async* {
-    try {
-      yield Loading();
-      var article = await articleUseCase.getListArticle();
-      if (article.isEmpty) {
-        yield NoData(message: 'No Data');
-      } else {
-        yield HasData(data: article);
+  ArticleBloc({required this.articleUseCase}) : super(Initial()) {
+    on<LoadData>((event, emit) async {
+      try {
+        emit(Loading());
+        var article = await articleUseCase.getListArticle();
+        if (article.isEmpty) {
+          emit(NoData(message: 'No Data'));
+        } else {
+          emit(HasData(data: article));
+        }
+      } on IOException {
+        emit(NoInternetConnection(message: 'No Internet Connection'));
+      } on TimeoutException {
+        emit(NoInternetConnection(message: 'No Internet Connection'));
+      } catch (e) {
+        emit(Error(message: e.toString()));
       }
-    } on IOException {
-      yield NoInternetConnection(message: 'No Internet Connection');
-    } on TimeoutException {
-      yield NoInternetConnection(message: 'No Internet Connection');
-    } catch (e) {
-      yield Error(message: e.toString());
-    }
+    });
   }
 }

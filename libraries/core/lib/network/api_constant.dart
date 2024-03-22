@@ -1,4 +1,4 @@
 class ApiConstant {
-  static String baseUrlDebug = "http://newsapi.org/v2";
-  static String baseUrlProd = "http://newsapi.org/v2";
+  static String baseUrlDebug = "https://newsapi.org/v2";
+  static String baseUrlProd = "https://newsapi.org/v2";
 }

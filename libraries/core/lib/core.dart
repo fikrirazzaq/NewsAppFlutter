@@ -8,7 +8,7 @@ class CoreModule extends ChildModule {
   final String baseUrl;
   final SharedPreferences preferences;
 
-  CoreModule({@required this.baseUrl, @required this.preferences});
+  CoreModule({required this.baseUrl, required this.preferences});
 
   @override
   List<Bind> get binds => [

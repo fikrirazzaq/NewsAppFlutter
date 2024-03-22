@@ -6,11 +6,11 @@ import 'package:list_news/domain/repositories/article_repository.dart';
 class ArticleRepositoryImpl extends ArticleRepository {
   final ArticleDataSource articleDataSource;
 
-  ArticleRepositoryImpl({@required this.articleDataSource});
+  ArticleRepositoryImpl({required this.articleDataSource});
 
   @override
   Future<List<ArticleEntity>> getListArticle() async {
-    List<ArticleEntity> articleEntity = List<ArticleEntity>();
+    List<ArticleEntity> articleEntity = List.empty(growable: true);
     var article = await articleDataSource.getListArticle();
     article.articles.forEach((data) {
       var news = ArticleEntity(

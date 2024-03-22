@@ -9,7 +9,7 @@ import 'package:shared/common/common.dart';
 class NewsHeader extends StatelessWidget {
   final ArticleEntity article;
 
-  const NewsHeader({Key key, @required this.article}) : super(key: key);
+  const NewsHeader({Key? key, required this.article}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class NewsHeader extends StatelessWidget {
                             padding: const EdgeInsets.all(10),
                             child: Text(
                               Modular.get<LocaleKeys>().listNewsRelease.tr(),
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                               textAlign: TextAlign.center,
                             ),
                           ),

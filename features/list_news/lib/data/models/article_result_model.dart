@@ -9,7 +9,7 @@ class ArticleResultModel {
   @JsonKey(name: 'articles')
   final List<ArticleModel> articles;
 
-  ArticleResultModel({@required this.articles});
+  ArticleResultModel({required this.articles});
 
   factory ArticleResultModel.fromJson(Map<String, dynamic> json) =>
       _$ArticleResultModelFromJson(json);

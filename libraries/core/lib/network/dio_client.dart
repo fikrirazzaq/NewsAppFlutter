@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class DioClient {
   final String apiBaseUrl;
 
-  DioClient({@required this.apiBaseUrl});
+  DioClient({required this.apiBaseUrl});
 
   Dio get dio => _getDio();
 
@@ -34,7 +34,7 @@ class DioClient {
       // If you want to resolve the request with some custom data，
       // you can return a `Response` object or return `dio.resolve(data)`.
       // If you want to reject the request with a error message,
-      // you can return a `DioError` object or return `dio.reject(errMsg)`
+      // you can return a `DioException` object or return `dio.reject(errMsg)`
     }, onResponse: (Response response) {
       // Do something with response data
       if (response.statusCode == 200) {
@@ -49,7 +49,7 @@ class DioClient {
         debugPrint("Dio Response Status --> ${response.statusCode}");
       }
       return response; // continue
-    }, onError: (DioError e) {
+    }, onError: (DioException e) {
       // Do something with response error
       debugPrint("Dio Response Error --> $e");
       return e; //continue

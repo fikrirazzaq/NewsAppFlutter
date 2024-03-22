@@ -7,7 +7,7 @@ import 'package:settings/presentation/bloc/language/language_state.dart';
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   final SharedPrefHelper prefHelper;
 
-  LanguageBloc({@required this.prefHelper})
+  LanguageBloc({required this.prefHelper})
       : super(InitialLanguage(isIndonesian: false));
 
   @override

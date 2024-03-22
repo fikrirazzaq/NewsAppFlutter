@@ -6,7 +6,7 @@ class SharedPrefHelper {
   static const _isIndonesian = "isIndonesian";
   final SharedPreferences preferences;
 
-  SharedPrefHelper({@required this.preferences});
+  SharedPrefHelper({required this.preferences});
 
   Future<bool> getValueDarkTheme() async {
     return preferences.getBool(_isDarkTheme) ?? false;

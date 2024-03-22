@@ -11,7 +11,7 @@ abstract class LanguageState extends Equatable {
 class InitialLanguage extends LanguageState {
   final bool isIndonesian;
 
-  InitialLanguage({@required this.isIndonesian});
+  InitialLanguage({required this.isIndonesian});
 
   @override
   List<Object> get props => [isIndonesian];

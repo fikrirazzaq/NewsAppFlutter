@@ -10,16 +10,16 @@ class ArticleEntity extends Equatable {
   final String publishedAt;
   final String content;
 
-  ArticleEntity(
-      {@required this.author,
-      @required this.title,
-      @required this.description,
-      @required this.url,
-      @required this.urlToImage,
-      @required this.publishedAt,
-      @required this.content});
+  ArticleEntity({
+    required this.author,
+    required this.title,
+    required this.description,
+    required this.url,
+    required this.urlToImage,
+    required this.publishedAt,
+    required this.content,
+  });
 
   @override
-  List<Object> get props =>
-      [author, title, description, url, urlToImage, publishedAt, content];
+  List<Object> get props => [author, title, description, url, urlToImage, publishedAt, content];
 }

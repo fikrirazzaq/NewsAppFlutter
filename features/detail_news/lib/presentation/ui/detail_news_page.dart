@@ -11,7 +11,7 @@ import 'package:shared/widget/widget.dart';
 class DetailNewsPage extends StatelessWidget {
   final ArticleEntity article;
 
-  const DetailNewsPage({@required this.article});
+  const DetailNewsPage({required this.article});
 
   Widget _buildBody(BuildContext context) {
     return SingleChildScrollView(
@@ -26,10 +26,8 @@ class DetailNewsPage extends StatelessWidget {
                   tag: article.urlToImage,
                   child: CachedNetworkImage(
                     imageUrl: article.urlToImage,
-                    placeholder: (context, url) =>
-                        Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        Center(child: Icon(Icons.error)),
+                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
                   ),
                 ),
           Padding(
@@ -39,34 +37,33 @@ class DetailNewsPage extends StatelessWidget {
               children: [
                 Text(
                   article.description ?? "",
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Divider(),
                 Text(
                   article.title ?? "",
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Divider(),
                 Text(
                   'Date: ${article.publishedAt}',
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 SizedBox(height: 10.h),
                 Text(
                   'Author: ${article.author}',
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Divider(),
                 Text(
                   article.content ?? "",
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(height: 10.h),
-                RaisedButton(
+                ElevatedButton(
                   child: Text(Modular.get<LocaleKeys>().btnReadMore.tr()),
-                  onPressed: () => Modular.link.pushNamed(
-                      Modular.get<NamedRoutes>().detailWebViewPage,
-                      arguments: article.url),
+                  onPressed: () =>
+                      Modular.link.pushNamed(Modular.get<NamedRoutes>().detailWebViewPage, arguments: article.url),
                 ),
               ],
             ),

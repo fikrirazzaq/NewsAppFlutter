@@ -10,7 +10,7 @@ import 'package:list_news/presentation/bloc/article_state.dart';
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   final ArticleUseCase articleUseCase;
 
-  ArticleBloc({@required this.articleUseCase}) : super(Initial());
+  ArticleBloc({required this.articleUseCase}) : super(Initial());
 
   @override
   Stream<ArticleState> mapEventToState(ArticleEvent event) async* {

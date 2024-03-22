@@ -6,7 +6,7 @@ import 'package:settings/presentation/bloc/theme/bloc.dart';
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   final SharedPrefHelper prefHelper;
 
-  ThemeBloc({@required this.prefHelper})
+  ThemeBloc({required this.prefHelper})
       : super(ThemeState(isDarkTheme: false));
 
   @override

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CustomScaffold extends StatelessWidget {
   final Widget body;
 
-  CustomScaffold({this.body});
+  CustomScaffold({required this.body});
 
   Widget _buildShortAppBar(BuildContext context) {
     return Card(
@@ -25,7 +25,7 @@ class CustomScaffold extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16.0),
             child: Text(
               'N',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
         ],

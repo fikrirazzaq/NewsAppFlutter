@@ -11,7 +11,7 @@ abstract class LanguageEvent extends Equatable {
 class LanguageChanged extends LanguageEvent {
   final bool isIndonesian;
 
-  LanguageChanged({@required this.isIndonesian});
+  LanguageChanged({required this.isIndonesian});
 
   @override
   List<Object> get props => [isIndonesian];

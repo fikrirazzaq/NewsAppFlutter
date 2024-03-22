@@ -27,13 +27,13 @@ class ArticleModel {
   final String content;
 
   ArticleModel(
-      {@required this.author,
-      @required this.title,
-      @required this.description,
-      @required this.url,
-      @required this.urlToImage,
-      @required this.publishedAt,
-      @required this.content});
+      {required this.author,
+      required this.title,
+      required this.description,
+      required this.url,
+      required this.urlToImage,
+      required this.publishedAt,
+      required this.content});
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) =>
       _$ArticleModelFromJson(json);

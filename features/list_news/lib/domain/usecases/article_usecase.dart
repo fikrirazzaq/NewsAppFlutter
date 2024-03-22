@@ -9,7 +9,7 @@ abstract class ArticleUseCase {
 class ArticleUseCaseImpl extends ArticleUseCase {
   final ArticleRepository articleRepository;
 
-  ArticleUseCaseImpl({@required this.articleRepository});
+  ArticleUseCaseImpl({required this.articleRepository});
 
   @override
   Future<List<ArticleEntity>> getListArticle() =>

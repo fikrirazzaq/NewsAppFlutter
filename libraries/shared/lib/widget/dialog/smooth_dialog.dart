@@ -9,21 +9,18 @@ enum SmoothMode { Lottie, Network, Asset }
 
 class ButtonConfig {
   final String dialogDone, dialogCancel;
-  Color buttonCancelColor, buttonDoneColor, labelCancelColor, labelDoneColor;
+  Color? buttonCancelColor, buttonDoneColor, labelCancelColor, labelDoneColor;
 
-  ButtonConfig(
-      {this.dialogDone = 'Done',
-      this.dialogCancel = 'Cancel',
-      this.buttonCancelColor,
-      this.buttonDoneColor}) {
-    if (buttonCancelColor == null)
-      buttonCancelColor = Modular.get<ColorPalettes>().lightPrimary;
-    if (buttonDoneColor == null)
-      buttonDoneColor = Modular.get<ColorPalettes>().darkAccent;
-    if (labelCancelColor == null)
-      labelCancelColor = Modular.get<ColorPalettes>().darkPrimary;
-    if (labelDoneColor == null)
-      labelDoneColor = Modular.get<ColorPalettes>().lightPrimary;
+  ButtonConfig({
+    this.dialogDone = 'Done',
+    this.dialogCancel = 'Cancel',
+    this.buttonCancelColor,
+    this.buttonDoneColor,
+  }) {
+    if (buttonCancelColor == null) buttonCancelColor = Modular.get<ColorPalettes>().lightPrimary;
+    if (buttonDoneColor == null) buttonDoneColor = Modular.get<ColorPalettes>().darkAccent;
+    if (labelCancelColor == null) labelCancelColor = Modular.get<ColorPalettes>().darkPrimary;
+    if (labelDoneColor == null) labelDoneColor = Modular.get<ColorPalettes>().lightPrimary;
   }
 }
 
@@ -38,18 +35,18 @@ class SmoothDialog {
   final Function cancel;
   final BuildContext context;
 
-  ButtonConfig buttonConfig;
+  ButtonConfig? buttonConfig;
   SmoothMode mode = SmoothMode.Lottie;
 
   SmoothDialog({
-    Key key,
-    @required this.context,
-    @required this.path,
-    @required this.title,
-    @required this.content,
-    @required this.submit,
-    @required this.cancel,
-    @required this.mode,
+    Key? key,
+    required this.context,
+    required this.path,
+    required this.title,
+    required this.content,
+    required this.submit,
+    required this.cancel,
+    required this.mode,
     this.buttonConfig,
     this.imageHeight = 150,
     this.imageWidth = 150,
@@ -63,8 +60,7 @@ class SmoothDialog {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(16))),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
               contentPadding: EdgeInsets.fromLTRB(16, 24, 16, 8),
               content: Container(
                 width: double.maxFinite,
@@ -96,12 +92,9 @@ class SmoothDialog {
                           imageUrl: path,
                           width: imageWidth,
                           height: imageHeight,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(
-                                      value: downloadProgress.progress),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+                          progressIndicatorBuilder: (context, url, downloadProgress) =>
+                              CircularProgressIndicator(value: downloadProgress.progress),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
                       )
                     ],
@@ -142,21 +135,17 @@ class SmoothDialog {
                                         cancel();
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 12, horizontal: 22),
+                                        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 22),
                                         decoration: BoxDecoration(
-                                            color:
-                                                buttonConfig.buttonCancelColor,
-                                            borderRadius:
-                                                BorderRadius.circular(16)),
+                                            color: buttonConfig?.buttonCancelColor,
+                                            borderRadius: BorderRadius.circular(16)),
                                         child: Text(
-                                          "${buttonConfig.dialogCancel}",
+                                          buttonConfig?.dialogCancel ?? '',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: 13,
                                             fontWeight: FontWeight.bold,
-                                            color:
-                                                buttonConfig.labelCancelColor,
+                                            color: buttonConfig?.labelCancelColor,
                                           ),
                                         ),
                                       ),
@@ -168,19 +157,17 @@ class SmoothDialog {
                                         submit();
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 12, horizontal: 26),
+                                        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 26),
                                         decoration: BoxDecoration(
-                                            color: buttonConfig.buttonDoneColor,
-                                            borderRadius:
-                                                BorderRadius.circular(16)),
+                                            color: buttonConfig?.buttonDoneColor,
+                                            borderRadius: BorderRadius.circular(16)),
                                         child: Text(
-                                          "${buttonConfig.dialogDone}",
+                                          "${buttonConfig?.dialogDone ?? ''}",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: 13,
                                             fontWeight: FontWeight.bold,
-                                            color: buttonConfig.labelDoneColor,
+                                            color: buttonConfig?.labelDoneColor,
                                           ),
                                         ),
                                       ),

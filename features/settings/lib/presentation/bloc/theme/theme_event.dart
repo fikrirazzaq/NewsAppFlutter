@@ -11,7 +11,7 @@ abstract class ThemeEvent extends Equatable {
 class ThemeChanged extends ThemeEvent {
   final bool isDarkTheme;
 
-  ThemeChanged({@required this.isDarkTheme});
+  ThemeChanged({required this.isDarkTheme});
 
   @override
   List<Object> get props => [isDarkTheme];

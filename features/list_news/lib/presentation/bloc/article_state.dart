@@ -16,7 +16,7 @@ class Loading extends ArticleState {}
 class NoData extends ArticleState {
   final String message;
 
-  NoData({@required this.message});
+  NoData({required this.message});
 
   @override
   List<Object> get props => [message];
@@ -25,7 +25,7 @@ class NoData extends ArticleState {
 class HasData extends ArticleState {
   final List<ArticleEntity> data;
 
-  HasData({@required this.data});
+  HasData({required this.data});
 
   @override
   List<Object> get props => [data];
@@ -34,7 +34,7 @@ class HasData extends ArticleState {
 class NoInternetConnection extends ArticleState {
   final String message;
 
-  NoInternetConnection({@required this.message});
+  NoInternetConnection({required this.message});
 
   @override
   List<Object> get props => [message];
@@ -43,7 +43,7 @@ class NoInternetConnection extends ArticleState {
 class Error extends ArticleState {
   final String message;
 
-  Error({@required this.message});
+  Error({required this.message});
 
   @override
   List<Object> get props => [message];
